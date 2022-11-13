@@ -1,0 +1,117 @@
+p {
+  float: right;
+}
+
+a {
+  text-decoration: none;
+  color: #08f;
+}
+
+body {
+  min-width: 650px;
+  max-width: calc(48em + 132px);
+  margin: 80px auto;
+  padding: 0;
+  background-color: #222;
+  line-height: 0;
+  color: #ddd;
+  font-family: 'Open Sans';
+}
+
+#main {
+  margin: auto;
+  padding: 2px;
+  display: grid;
+  grid-template-columns: 1fr 8fr 23fr;
+  justify-items: stretch;
+  align-items: stretch;
+  background-color: #444;
+}
+
+.checkbox-list {
+  display: inline-block;
+  justify-content: stretch;
+  background-color: #bbb;
+}
+
+.checkbox-container {
+  float: left;
+  height: 1.5em;
+  width: 1.5em;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.checkbox-container input {
+  position: absolute;
+  opacity: 0;
+  margin: 0;
+  width: 0;
+  height: 0;
+  cursor: pointer;
+}
+
+.checkbox {
+  display: inline-block;
+  height: 100%;
+  width: 100%;
+  background-color: #ddd;
+}
+
+.checkbox-container:hover .checkbox {
+  background-color: #aaa;
+}
+
+.checkbox-container input:checked ~ .checkbox {
+  background-color: #333;
+}
+
+.checkbox-container input:focus ~ .checkbox {
+  outline: #08f dashed 2px;
+}
+
+.textbox {
+  padding: 2px;
+  height: 2em;
+}
+
+.textbox input {
+  font-size: 24pt;
+  font-family: monospace;
+  margin: 0;
+  padding: 0;
+  color: #eee;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: transparent;
+}
+
+.textbox input:focus {
+  outline: #fff dashed 2px;
+}
+
+#val-textbox {
+  height: 3em;
+  grid-column: 1 / 4;
+}
+
+#val {
+  font-size: 32pt;
+}
+
+#sgn {
+  text-align: center;
+}
+
+#sgn-textbox {
+  background-color: rgb(137, 97, 97);
+}
+
+#exp-textbox {
+  background-color: rgb(90, 136, 90);
+}
+
+#man-textbox {
+  background-color: rgb(91, 115, 143);
+}
