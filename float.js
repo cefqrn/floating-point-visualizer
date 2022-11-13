@@ -37,6 +37,8 @@ export class Float {
     const exp = this.exponent
     if (this.exponent == 128) {
       return (this.bits & 0x007fffff) ? NaN : Infinity * this.sign
+    } else if (!(this.bits & 0x7fffffff)) {
+      return 0
     }
 
     return this.sign * this.mantissa * Math.pow(2, this.exponent)

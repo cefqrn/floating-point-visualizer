@@ -17,7 +17,13 @@ addEventListener("DOMContentLoaded", _ => {
   const expElement = document.getElementById("exp")
   const manElement = document.getElementById("man")
   function updateValues() {
-    valElement.value = floatValue.value
+    const value = floatValue.value
+    if (value === 0) {
+      valElement.value = `${floatValue.sign === 1 ? "" : "-"}${value}`
+    } else {
+      valElement.value = value
+    }
+    
     sgnElement.value = floatValue.sign === 1 ? "+" : "-"
     expElement.value = floatValue.exponent
     manElement.value = floatValue.mantissa
