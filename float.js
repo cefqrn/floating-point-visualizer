@@ -82,7 +82,7 @@ export class Float {
     const man = Math.round((val/Math.pow(2, exp - 23)))
     const sgn = val < 0 || Object.is(val, -0) ? 1 : 0
 
-    if (exp >= 128) {
+    if (exp >= 128 || Math.abs(val) === Infinity) {
       this.bits = (sgn << 31) | BIT_MASKS.EXPONENT
     } else {
       this.bits = (sgn << 31) | ((exp + 127) << 23) | (man & BIT_MASKS.MANTISSA)
