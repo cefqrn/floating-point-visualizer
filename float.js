@@ -1,7 +1,14 @@
 const BIT_MASKS = {
   SIGN:     0x80000000,
   EXPONENT: 0x7f800000,
-  MANTISSA: 0x007fffff
+  MANTISSA: 0x007fffff,
+  NAN:      0x7fffffff
+}
+
+const MAN_MAX = 1 + BIT_MASKS.MANTISSA * Math.pow(2, -23)
+
+function clamp(num, min, max) {
+  return Math.max(Math.min(num, max), min)
 }
 
 export class Float {
@@ -27,7 +34,56 @@ export class Float {
     this.bits = parseInt(params.get("v") ?? "0", 16)
   }
 
-  get negative() {
+  setExponent(newValue) {
+    let val = Number.parseFloat(newValue)
+    if (isNaN(val)) return null
+
+    val = clamp(val, -127, 128)
+
+    this.bits &= BIT_MASKS.SIGN | BIT_MASKS.MANTISSA
+    this.bits |= ((val + 127) << 23) & BIT_MASKS.EXPONENT
+
+    return this.exponent
+  }
+
+  setMantissa(newValue) {
+    let val = Number.parseFloat(newValue)
+    if (isNaN(val)) return null
+
+    val = clamp(val, 1, MAN_MAX)
+
+    const man = Math.round(val * Math.pow(2, 23))
+    this.bits &= ~BIT_MASKS.MANTISSA
+    this.bits |= man & BIT_MASKS.MANTISSA
+
+    return this.mantissa
+  }
+
+  setValue(newValue) {
+    const val = Number.parseFloat(newValue)
+
+    if (isNaN(val)) {
+      this.bits = BIT_MASKS.NAN
+      return this.value
+    }
+
+    const absVal = Math.abs(val)
+    const expBits = this.setExponent(Math.floor(Math.log2(absVal)))
+    
+    // don't set the mantissa if the value is infinite
+    if (expBits < 128) {
+      this.setMantissa(absVal/Math.pow(2, expBits))
+    } else {
+      this.setMantissa(1)
+    }
+
+    this.bits &= ~BIT_MASKS.SIGN
+    this.bits |= (val < 0 || Object.is(val, -0)) << 31
+
+    return this.value
+  }
+
+  get isNegative() {
     return (this.bits & BIT_MASKS.SIGN) >> 31
   }
 
@@ -39,25 +95,8 @@ export class Float {
     return ((this.bits & BIT_MASKS.EXPONENT) >> 23) - 127
   }
 
-  set exponent(newValue) {
-    const val = Number.parseFloat(newValue)
-
-    this.bits &= BIT_MASKS.SIGN | BIT_MASKS.MANTISSA
-    this.bits |= ((val + 127) << 23) & BIT_MASKS.EXPONENT
-  }
-
   get mantissa() {
     return ((this.bits & BIT_MASKS.MANTISSA) | 0x00800000) * Math.pow(2, -23)
-  }
-
-  set mantissa(newValue) {
-    const val = Number.parseFloat(newValue)
-
-    if (isNaN(val)) return
-
-    const man = Math.round(val * Math.pow(2, 23))
-    this.bits &= ~BIT_MASKS.MANTISSA
-    this.bits |= man & BIT_MASKS.MANTISSA
   }
 
   get value() {
@@ -68,24 +107,5 @@ export class Float {
     }
 
     return this.sign * this.mantissa * Math.pow(2, this.exponent)
-  }
-
-  set value(newValue) {
-    const val = Number.parseFloat(newValue)
-
-    if (isNaN(val)) {
-      this.bits = BIT_MASKS.EXPONENT | BIT_MASKS.MANTISSA
-      return
-    }
-
-    const exp = Math.floor(Math.log2(val))
-    const man = Math.round((val/Math.pow(2, exp - 23)))
-    const sgn = val < 0 || Object.is(val, -0) ? 1 : 0
-
-    if (exp >= 128 || Math.abs(val) === Infinity) {
-      this.bits = (sgn << 31) | BIT_MASKS.EXPONENT
-    } else {
-      this.bits = (sgn << 31) | ((exp + 127) << 23) | (man & BIT_MASKS.MANTISSA)
-    }
   }
 }

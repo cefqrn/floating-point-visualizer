@@ -25,7 +25,7 @@ addEventListener("DOMContentLoaded", _ => {
   function updateValue() {
     const value = floatValue.value
     if (value === 0) {
-      valElement.value = `${floatValue.negative ? "-" : ""}${value}`
+      valElement.value = `${floatValue.isNegative ? "-" : ""}${value}`
     } else {
       valElement.value = value
     }
@@ -80,21 +80,21 @@ addEventListener("DOMContentLoaded", _ => {
   }
 
   valElement.addEventListener("input", _ => {
-    floatValue.value = valElement.value
+    floatValue.setValue(valElement.value)
 
     updateCheckboxes()
     updateElements(ELEMENT_IDS.ALL & ~(ELEMENT_IDS.VALUE))
   })
 
   expElement.addEventListener("input", _ => {
-    floatValue.exponent = expElement.value
+    floatValue.setExponent(expElement.value)
 
     updateCheckboxes()
     updateElements(ELEMENT_IDS.ALL & ~(ELEMENT_IDS.EXPONENT))
   })
 
   manElement.addEventListener("input", _ => {
-    floatValue.mantissa = manElement.value
+    floatValue.setMantissa(manElement.value)
 
     updateCheckboxes()
     updateElements(ELEMENT_IDS.ALL & ~(ELEMENT_IDS.MANTISSA))
