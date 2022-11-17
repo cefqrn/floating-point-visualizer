@@ -13,7 +13,7 @@ function clamp(num, min, max) {
 
 export class Float {
   constructor() {
-    // js converts numbers to 32-bit signed ints before doing bitwise operations
+    // js converts numbers to 32-bit `signed` ints before doing bitwise operations
     this.bits = 0
   }
 
@@ -26,7 +26,7 @@ export class Float {
   }
 
   encode() {
-    return this.bits.toString(16)
+    return (this.bits >>> 0).toString(16)
   }
 
   load() {
@@ -84,7 +84,23 @@ export class Float {
   }
 
   get isNegative() {
-    return (this.bits & BIT_MASKS.SIGN) >> 31
+    return  (this.bits & BIT_MASKS.SIGN) >> 31
+  }
+
+  get valueBits() {
+    return   this.bits >>> 0
+  }
+
+  get signBit() {
+    return   this.bits >>> 31
+  }
+
+  get exponentBits() {
+    return  (this.bits & BIT_MASKS.EXPONENT) >>> 23
+  }
+
+  get mantissaBits() {
+    return  (this.bits & BIT_MASKS.MANTISSA) >>> 0
   }
 
   get sign() {

@@ -1,31 +1,8 @@
-p {
-  float: right;
-}
-
-a {
-  text-decoration: none;
-  color: #08f;
-}
-
-body {
-  min-width: 650px;
-  max-width: calc(48em + 132px);
-  margin: 80px auto;
-  padding: 0;
-  background-color: #222;
-  line-height: 0;
-  color: #ddd;
-  font-family: 'Open Sans';
-}
-
-#main {
-  margin: auto;
+#inputs {
   padding: 2px;
   display: grid;
   grid-template-columns: 1fr 8fr 23fr;
-  justify-items: stretch;
-  align-items: stretch;
-  background-color: #444;
+  background-color: inherit;
 }
 
 .checkbox-list {

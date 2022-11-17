@@ -4,7 +4,9 @@
 <head>
   <title>Floating Point Visualizer</title>
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
-  <link rel="stylesheet" type="text/css" href="style.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="main.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="inputs.css" media="screen" />
+  <link rel="stylesheet" type="text/css" href="details.css" media="screen" />
 
   <script src="navigation.js"></script>
   <script type="module" src="main.js"></script>
@@ -12,154 +14,177 @@
 <body>
   <h1>Floating Point Visualizer</h1>
   <div id="main">
-    <div class="textbox" id="val-textbox">
-      <input type="text" id="val">
+    <div id="inputs">
+      <div class="textbox" id="val-textbox">
+        <input type="text" id="val" placeholder="14.25">
+      </div>
+      <div class="textbox" id="sgn-textbox">
+        <input type="text" id="sgn">
+      </div>
+      <div class="textbox" id="exp-textbox">
+        <input type="text" id="exp" placeholder="3">
+      </div>
+      <div class="textbox" id="man-textbox">
+        <input type="text" id="man" placeholder="1.78125">
+      </div>
+      <div class="checkbox-list" id="sgn-checkboxes">
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+      </div>
+      <div class="checkbox-list" id="exp-checkboxes">
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+      </div>
+      <div class="checkbox-list" id="man-checkboxes">
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+        <label class="checkbox-container">
+          <input type="checkbox">
+          <span class="checkbox"></span>
+        </label>
+      </div>
     </div>
-    <div class="textbox" id="sgn-textbox">
-      <input type="text" id="sgn">
-    </div>
-    <div class="textbox" id="exp-textbox">
-      <input type="text" id="exp">
-    </div>
-    <div class="textbox" id="man-textbox">
-      <input type="text" id="man">
-    </div>
-    <div class="checkbox-list" id="sgn-checkboxes">
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-    </div>
-    <div class="checkbox-list" id="exp-checkboxes">
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-    </div>
-    <div class="checkbox-list" id="man-checkboxes">
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
-      <label class="checkbox-container">
-        <input type="checkbox">
-        <span class="checkbox"></span>
-      </label>
+    <div id="details">
+      <div id="details-header">
+        <button id="button-left">&lt;</button>
+        <button id="button-right">&gt;</button>
+        <h2 id="details-title">Value</h2>
+      </div>
+      <table>
+        <tr>
+          <th class="table-row-name">Entered value:</th>
+          <th class="table-value" id="entered">0</th>
+        </tr>
+        <tr>
+          <th class="table-row-name">True value:</th>
+          <th class="table-value" id="true">0</th>
+        </tr>
+        <tr>
+          <th class="table-row-name">Encoded as:</th>
+          <th class="table-value" id="encoded">0x00000000</th>
+        </tr>
+      </table>
     </div>
   </div>
-  <p>permalink: <a id="permalink" href=""></a></p>
+  <p id="link">permalink: <a id="permalink" href=""></a></p>
 </body>
 
 </html>

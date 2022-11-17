@@ -1,15 +1,15 @@
 import { Float } from "./float.js"
 
-addEventListener("DOMContentLoaded", _ => {
-  const ELEMENT_IDS = {
-    LINK:     0b00001,
-    VALUE:    0b00010,
-    SIGN:     0b00100,
-    EXPONENT: 0b01000,
-    MANTISSA: 0b10000,
-    ALL:      0b11111
-  }
+const ELEMENT_IDS = {
+  LINK:     0b00001,
+  VALUE:    0b00010,
+  SIGN:     0b00100,
+  EXPONENT: 0b01000,
+  MANTISSA: 0b10000,
+  ALL:      0b11111
+}
 
+addEventListener("DOMContentLoaded", _ => {
   const floatValue = new Float
 
   const linkElement = document.getElementById("permalink")
@@ -67,6 +67,17 @@ addEventListener("DOMContentLoaded", _ => {
     }
   }
 
+  const detailsTitle = document.getElementById("details-title")
+  const detailsEntered = document.getElementById("entered")
+  const detailsTrue = document.getElementById("true")
+  const detailsEncoded = document.getElementById("encoded")
+  function setDetails(title, enteredValue, trueValue, encodedValue) {
+    detailsTitle.innerText = title
+    detailsEntered.innerText = enteredValue
+    detailsTrue.innerText = trueValue
+    detailsEncoded.innerText = encodedValue
+  }
+
   floatValue.load()
   for (let i=0; i < checkboxes.length; ++i) {
     const checkbox = checkboxes[i]
@@ -82,6 +93,7 @@ addEventListener("DOMContentLoaded", _ => {
   valElement.addEventListener("input", _ => {
     floatValue.setValue(valElement.value)
 
+    setDetails("Value", valElement.value, floatValue.value, `0x${floatValue.valueBits.toString(16)}`)
     updateCheckboxes()
     updateElements(ELEMENT_IDS.ALL & ~(ELEMENT_IDS.VALUE))
   })
@@ -89,6 +101,7 @@ addEventListener("DOMContentLoaded", _ => {
   expElement.addEventListener("input", _ => {
     floatValue.setExponent(expElement.value)
 
+    setDetails("Exponent", expElement.value, floatValue.exponent, `0x${floatValue.exponentBits.toString(16)}`)
     updateCheckboxes()
     updateElements(ELEMENT_IDS.ALL & ~(ELEMENT_IDS.EXPONENT))
   })
@@ -96,9 +109,59 @@ addEventListener("DOMContentLoaded", _ => {
   manElement.addEventListener("input", _ => {
     floatValue.setMantissa(manElement.value)
 
+    setDetails("Mantissa", manElement.value, floatValue.mantissa, `0x${floatValue.mantissaBits.toString(16)}`)
     updateCheckboxes()
     updateElements(ELEMENT_IDS.ALL & ~(ELEMENT_IDS.MANTISSA))
   })
 
+  valElement.addEventListener("click", _ => {
+    setDetails("Value", valElement.value, floatValue.value, `0x${floatValue.valueBits.toString(16)}`)
+  })
+
+  expElement.addEventListener("click", _ => {
+    setDetails("Exponent", expElement.value, floatValue.exponent, `0x${floatValue.exponentBits.toString(16)}`)
+  })
+
+  manElement.addEventListener("click", _ => {
+    setDetails("Mantissa", manElement.value, floatValue.mantissa, `0x${floatValue.mantissaBits.toString(16)}`)
+  })
+
+  // TODO: improve this, repeats the same thing like 20 times
+  // maybe use an array
+  const leftButton = document.getElementById("button-left")
+  leftButton.addEventListener("click", _ => {
+    switch (detailsTitle.innerHTML) {
+      case "Value":
+        setDetails("Mantissa", manElement.value, floatValue.mantissa, `0x${floatValue.mantissaBits.toString(16)}`)
+        break
+      case "Exponent":
+        setDetails("Value", valElement.value, floatValue.value, `0x${floatValue.valueBits.toString(16)}`)
+        break
+      case "Mantissa":
+        setDetails("Exponent", expElement.value, floatValue.exponent, `0x${floatValue.exponentBits.toString(16)}`)
+        break
+      default:
+        setDetails("Value", valElement.value, floatValue.value, `0x${floatValue.valueBits.toString(16)}`)
+    }
+  })
+
+  const rightButton = document.getElementById("button-right")
+  rightButton.addEventListener("click", _ => {
+    switch (detailsTitle.innerHTML) {
+      case "Value":
+        setDetails("Exponent", expElement.value, floatValue.exponent, `0x${floatValue.exponentBits.toString(16)}`)
+        break
+      case "Exponent":
+        setDetails("Mantissa", manElement.value, floatValue.mantissa, `0x${floatValue.mantissaBits.toString(16)}`)
+        break
+      case "Mantissa":
+        setDetails("Value", valElement.value, floatValue.value, `0x${floatValue.valueBits.toString(16)}`)
+        break
+      default:
+        setDetails("Value", valElement.value, floatValue.value, `0x${floatValue.valueBits.toString(16)}`)
+    }
+  })
+
   updateElements(ELEMENT_IDS.ALL)
+  setDetails("Value", valElement.value, floatValue.value, `0x${floatValue.valueBits.toString(16)}`)
 })

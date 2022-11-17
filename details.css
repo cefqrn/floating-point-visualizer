@@ -1,0 +1,66 @@
+#details {
+  min-width: calc(13.5em + 36px);
+  padding: 0 2px 2px 2px;
+  margin-top: -2px;
+  float: left;
+  background-color: inherit;
+}
+
+#details-header {
+  background-color: rgb(91, 115, 143);
+  margin: 0;
+}
+
+#details-header button {
+  height: 1.5em;
+  width: 1.5em;
+  font-size: 12pt;
+  border: none;
+  margin: 2px;
+  background-color: rgb(144, 160, 179);
+  cursor: pointer;
+}
+
+#button-left {
+  float: left;
+}
+
+#button-right {
+  float: right;
+}
+
+#details-header button:hover {
+  background-color: #bbb;
+}
+
+#details-header button:active {
+  background-color: #333;
+  color: #eee;
+}
+
+#details-header button:focus {
+  outline: #fff dashed 2px;
+}
+
+#details-title {
+  margin: 0;
+  font-size: 15pt;
+}
+
+table {
+  width: 100%;
+}
+
+th {
+  font-weight: unset;
+}
+
+.table-row-name {
+  text-align: left;
+}
+
+.table-value {
+  text-align: right;
+  font-family: monospace;
+  padding-left: 3em;
+}
