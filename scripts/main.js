@@ -1,4 +1,4 @@
-import { Float } from "./scripts/float.js"
+import { Float } from "./float.js"
 
 const ELEMENT_IDS = {
   LINK:     0b00001,
