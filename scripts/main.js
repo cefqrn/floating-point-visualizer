@@ -69,7 +69,7 @@ let checkboxes
     }
 
     prevDetails = () => {
-      setDetails((detailsFunctionsIndex ? detailsFunctionsIndex : detailsFunctionsIndex) - 1)
+      setDetails((detailsFunctionsIndex ? detailsFunctionsIndex : detailsFunctions.length) - 1)
     }
 
     nextDetails = () => {
