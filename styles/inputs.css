@@ -6,8 +6,6 @@
 }
 
 .checkbox-list {
-  display: inline-block;
-  justify-content: stretch;
   background-color: #bbb;
 }
 

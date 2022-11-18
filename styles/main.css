@@ -1,5 +1,4 @@
 body {
-  min-width: 650px;
   max-width: calc(48em + 128px + 4px);
   margin: 80px auto;
   padding: 0;
@@ -22,6 +21,6 @@ a {
 }
 
 #link {
-  float: right;
+  clear: both;
   margin: 0;
 }
