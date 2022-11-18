@@ -1,13 +1,14 @@
 import { Float } from "./float.js"
 
 const ELEMENT_IDS = {
-  LINK:       0b000001,
-  VALUE:      0b000010,
-  SIGN:       0b000100,
-  EXPONENT:   0b001000,
-  MANTISSA:   0b010000,
-  CHECKBOXES: 0b100000,
-  ALL:        0b111111
+  LINK:       0b0000001,
+  VALUE:      0b0000010,
+  SIGN:       0b0000100,
+  EXPONENT:   0b0001000,
+  MANTISSA:   0b0010000,
+  CHECKBOXES: 0b0100000,
+  DETAILS:    0b1000000,
+  ALL:        0b1111111
 }
 
 const DETAILS_IDS = {
@@ -33,12 +34,13 @@ let checkboxes
 {
   const linkElement = document.getElementById("permalink")
 
+  let updateDetails
   {
     let detailsFunctionsIndex = 0
     const detailsFunctions = [
-      () => ["Value",    valElement.value, floatValue.value,    `0x${floatValue.valueBits.toString(16)}`   ],
-      () => ["Exponent", expElement.value, floatValue.exponent, `0x${floatValue.exponentBits.toString(16)}`],
-      () => ["Mantissa", manElement.value, floatValue.mantissa, `0x${floatValue.mantissaBits.toString(16)}`]
+      () => ["Value",    valElement.value, floatValue.value,    `0x${floatValue.valueBits.toString(16).padStart(8, '0')}`   ],
+      () => ["Exponent", expElement.value, floatValue.exponent, `0x${floatValue.exponentBits.toString(16).padStart(2, '0')}`],
+      () => ["Mantissa", manElement.value, floatValue.mantissa, `0x${floatValue.mantissaBits.toString(16).padStart(6, '0')}`]
     ]
 
     const detailsTitle   = document.getElementById("details-title")
@@ -55,6 +57,15 @@ let checkboxes
       detailsEncoded.innerText = encodedValue
 
       detailsFunctionsIndex = newIndex
+    }
+
+    updateDetails = () => {
+      const [title, enteredValue, trueValue, encodedValue] = detailsFunctions[detailsFunctionsIndex]()
+
+      detailsTitle.innerText   = title
+      detailsEntered.innerText = enteredValue
+      detailsTrue.innerText    = trueValue
+      detailsEncoded.innerText = encodedValue
     }
 
     prevDetails = () => {
@@ -108,6 +119,7 @@ let checkboxes
     if (selectedElements & ELEMENT_IDS.EXPONENT  ) updateExponent()
     if (selectedElements & ELEMENT_IDS.MANTISSA  ) updateMantissa()
     if (selectedElements & ELEMENT_IDS.CHECKBOXES) updateCheckboxes()
+    if (selectedElements & ELEMENT_IDS.DETAILS   ) updateDetails()
   }
 }
 

@@ -26,7 +26,7 @@ export class Float {
   }
 
   encode() {
-    return (this.bits >>> 0).toString(16)
+    return (this.bits >>> 0).toString(16).padStart(8, '0')
   }
 
   load() {
