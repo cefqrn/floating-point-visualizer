@@ -87,6 +87,10 @@ export class Float {
     return  (this.bits & BIT_MASKS.SIGN) >> 31
   }
 
+  get isUnderflowing() {
+    return ((this.bits & BIT_MASKS.EXPONENT) >>> 23) === 0
+  }
+
   get valueBits() {
     return   this.bits >>> 0
   }
@@ -108,10 +112,14 @@ export class Float {
   }
 
   get exponent() {
-    return ((this.bits & BIT_MASKS.EXPONENT) >> 23) - 127
+    return ((this.bits & BIT_MASKS.EXPONENT) >> 23) - 127 + this.isUnderflowing
   }
 
   get mantissa() {
+    if (this.isUnderflowing) {
+      return (this.bits & BIT_MASKS.MANTISSA) * Math.pow(2, -23)
+    }
+
     return ((this.bits & BIT_MASKS.MANTISSA) | 0x00800000) * Math.pow(2, -23)
   }
 
