@@ -40,7 +40,7 @@ export class Float {
 
     val = clamp(val, -127, 128)
 
-    this.bits &= BIT_MASKS.SIGN | BIT_MASKS.MANTISSA
+    this.bits &= ~BIT_MASKS.EXPONENT
     this.bits |= ((val + 127) << 23) & BIT_MASKS.EXPONENT
 
     return this.exponent
@@ -50,11 +50,10 @@ export class Float {
     let val = Number.parseFloat(newValue)
     if (isNaN(val)) return null
 
-    val = clamp(val, 1, MAN_MAX)
+    val = clamp(val, 1 - this.isUnderflowing, MAN_MAX)
 
-    const man = Math.round(val * Math.pow(2, 23))
     this.bits &= ~BIT_MASKS.MANTISSA
-    this.bits |= man & BIT_MASKS.MANTISSA
+    this.bits |= Math.round(val * Math.pow(2, 23)) & BIT_MASKS.MANTISSA
 
     return this.mantissa
   }
